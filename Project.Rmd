@@ -1,0 +1,33 @@
+---
+title:  "## **1974 Motor Trends Data Plotted using Plotly**"
+author: "James Kim"
+date:   "3/13/2017"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE,message=FALSE,comment="")
+```
+
+##
+#### **Fuel Efficiency vs. [Horse Power, Cylinders, Displacement]**
+
+```{r mtcars gplotly(ggplot),echo=FALSE,message=FALSE,comment=""}
+require(plotly)
+
+oldw<-getOption("warn")
+options(warn=-1)
+
+margins<-list(l=50,r=50,b=50,t=50,pad=4)
+
+Cylinders<-factor(mtcars$cyl)
+Displacement<-mtcars$disp
+
+require(ggplot2)
+(ggplot(mtcars)+geom_point(aes(y=mpg,x=hp,size=Displacement,color=Cylinders),alpha=0.75)+ theme(legend.position="none"))%>%
+    ggplotly()%>%layout(autosize=FALSE,width=750,height=500,margin=margins,
+                        xaxis=list(title="Horse Power"),
+                        yaxis=list(title="MPG (miles/gallon)"))
+
+options(warn=oldw)
+```

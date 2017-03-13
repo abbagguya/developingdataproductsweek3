@@ -20,11 +20,13 @@ options(warn=-1)
 
 margins<-list(l=50,r=50,b=50,t=50,pad=4)
 
+HP<-mtcars$hp
+MPG<-mtcars$mpg
 Cylinders<-factor(mtcars$cyl)
 Displacement<-mtcars$disp
 
 require(ggplot2)
-(ggplot(mtcars)+geom_point(aes(y=mpg,x=hp,size=Displacement,color=Cylinders),alpha=0.75)+ theme(legend.position="none"))%>%
+(ggplot(mtcars)+geom_point(aes(y=MPG,x=HP,size=Displacement,color=Cylinders),alpha=0.75)+ theme(legend.position="none"))%>%
     ggplotly()%>%layout(autosize=FALSE,width=750,height=500,margin=margins,
                         xaxis=list(title="Horse Power"),
                         yaxis=list(title="MPG (miles/gallon)"))

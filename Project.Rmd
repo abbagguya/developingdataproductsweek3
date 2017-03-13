@@ -26,12 +26,37 @@ Cylinders<-factor(mtcars$cyl)
 Displacement<-mtcars$disp
 
 require(ggplot2)
-(ggplot(mtcars)+theme(legend.position="none")+xlim(c(0,350))+ylim(c(0,35))+
-                geom_point(aes(y=MPG,x=HP,size=Displacement,color=Cylinders),alpha=0.75)+
+(ggplot(mtcars,aes(y=MPG,x=HP))+theme(legend.position="none")+xlim(c(0,350))+ylim(c(0,35))+
+                geom_point(aes(size=Displacement,color=Cylinders),alpha=0.75)+
                 geom_smooth(aes(y=mpg,x=hp),method='lm'))%>%
     ggplotly()%>%layout(autosize=FALSE,width=750,height=500,margin=margins,
                         xaxis=list(title="Horse Power"),
                         yaxis=list(title="MPG (miles/gallon)"))
 
+options(warn=oldw)
+```
+
+##
+#### **Plotly Plot Code**
+
+```{r mtcars gplotly(ggplot) code,echo=TRUE,message=FALSE,comment="",eval=FALSE}
+require(plotly)
+HP<-mtcars$hp
+MPG<-mtcars$mpg
+Cylinders<-factor(mtcars$cyl)
+Displacement<-mtcars$disp
+margins<-list(l=50,r=50,b=50,t=50,pad=4)
+oldw<-getOption("warn")
+options(warn=-1)
+require(ggplot2)
+(ggplot(mtcars,aes(y=MPG,x=HP))
++theme(legend.position="none")
++xlim(c(0,350))+ylim(c(0,35))
++geom_point(aes(size=Displacement,color=Cylinders),alpha=0.75)
++geom_smooth(aes(y=mpg,x=hp),method='lm'))
+%>%ggplotly()
+%>%layout(autosize=FALSE,width=750,height=500,margin=margins,
+          xaxis=list(title="Horse Power"),
+          yaxis=list(title="MPG (miles/gallon)"))
 options(warn=oldw)
 ```
